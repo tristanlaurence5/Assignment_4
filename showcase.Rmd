@@ -1,0 +1,48 @@
+---
+title: "GV300 Showcase"
+description: "Analysis of UK Electoral Turnout 2024"
+output: distill::distill_article
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Introduction
+## 1. UK 2024 Election: Turnout Analysis
+In this project, I processed raw candidacy data from the UK Parliament to analyze voter engagement.
+
+
+```{r}
+#install necessary packages
+install.packages("tidyverse")
+
+library(tidyverse)
+uk_csv <- "https://electionresults.parliament.uk/general-elections/6/candidacies.csv"
+
+# Read the CSV from the URL directly
+uk_raw <- readr::read_csv(uk_csv, show_col_types = FALSE)
+
+# Cleaning names and calculating turnout
+uk <- uk_raw %>%
+  rename_all(~tolower(gsub(" ", "_", .))) %>%
+  filter(!`election_is_by-election`) %>%
+  group_by(country_name, constituency_name) %>%
+  summarise(valid_votes = sum(candidate_vote_count, na.rm = TRUE), 
+            electorate = max(electorate, na.rm = TRUE), .groups = "drop") %>%
+  mutate(turnout = 100 * valid_votes / electorate) %>%
+  filter(is.finite(turnout), electorate > 0)
+
+# Visualizing mean turnout by country
+ggplot(uk, aes(x = reorder(country_name, turnout), y = turnout, fill = country_name)) +
+  geom_bar(stat = "summary", fun = "mean") +
+  labs(title = "Mean Turnout by Country (UK 2024)", x = "Country", y = "Mean Turnout (%)") +
+  theme_minimal() + guides(fill = "none")
+```
+
+summary(logit_mod)
+
+
+# 2. Visualisation Explanaton 
+
+This visualization explores voter engagement across the four countries of the UK during the 2024 General Election. To generate this figure, I first performed extensive data wrangling on raw candidacy records, cleaning column names and aggregating valid votes at the constituency level. I then calculated turnout as a percentage of the registered electorate to ensure comparability across regions. The bar chart displays the mean turnout by country, ordered to highlight geographic variations in political participation. This project demonstrates my proficiency in the Tidyverse for both complex data manipulation and professional communication of social science findings. By automating this workflow in R, I ensure that the analysis is fully reproducible and transparent.

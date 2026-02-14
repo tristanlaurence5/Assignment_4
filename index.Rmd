@@ -1,0 +1,17 @@
+---
+title: "Tristan Daley"
+image: "frank.jpg"
+links:
+  - label: GitHub
+    url: "https://github.com/tristanlaurence5"
+output:
+  postcards::trestles
+---
+
+# Learn more about creating websites with Distill at:
+# https://rstudio.github.io/distill/website.html
+
+# Learn more about publishing to GitHub Pages at:
+# https://rstudio.github.io/distill/publish_website.html#github-pages
+
+```

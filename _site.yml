@@ -1,0 +1,12 @@
+name: "GV300 Portfolio"
+title: "My Data Science Showcase"
+description: |
+  A showcase of political science modeling and visualization.
+output_dir: "docs"
+navbar:
+  right:
+    - text: "Home"
+      href: index.html
+    - text: "Showcase"
+      href: showcase.html
+output: distill::distill_article

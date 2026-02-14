@@ -1,0 +1,238 @@
+---
+title: "GV300 Student Assignment: Personal Website (Postcards + Distill)"
+author: "Your Name"
+date: "`r format(Sys.Date(), '%B %d, %Y')`"
+output:
+  distill::distill_article:
+    toc: true
+    toc_depth: 3
+    code_folding: true
+description: "Build a personal GitHub website using Postcards and Distill, then publish a GV300 showcase of your best code and visualization."
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+```
+
+# Overview
+
+In this assignment, you will create a personal GitHub website and use it to showcase your best work from previous GV300 assignments.
+
+**Objective**  
+Create a personal GitHub site using the **Postcards + Distill** workflow described here, then publish a GV300 showcase page that includes example code and a data visualisation you are most proud of from earlier assignments.
+
+Follow this guide  
+<https://www.apreshill.com/blog/2020-12-postcards-distill/>
+
+# Learning goals
+
+- Build and publish a simple personal website using GitHub Pages.
+- Practice communicating your work clearly in a public-facing format.
+- Demonstrate reproducible analysis by embedding code and output.
+- Showcase at least one strong data visualisation and explain it in plain language.
+
+
+# Getting set up (Git and RStudio)
+
+You will need.
+
+- R and RStudio
+- Git
+- A GitHub account
+
+## Install R and RStudio
+
+Install R from CRAN and then install RStudio Desktop.
+
+- R  <https://cran.r-project.org/>
+- RStudio Desktop  <https://posit.co/download/rstudio-desktop/>
+
+After installing, open RStudio and confirm you can run.
+
+```{r}
+R.version.string
+```
+
+## Install Git
+
+Install Git for your operating system.
+
+- Windows  <https://git-scm.com/download/win>
+- macOS  <https://git-scm.com/download/mac>
+- Linux  <https://git-scm.com/download/linux>
+
+After installing, confirm Git works.
+
+- Windows  open Git Bash and run `git --version`
+- macOS or Linux  open Terminal and run `git --version`
+
+## Connect Git to RStudio
+
+In RStudio.
+
+1. Go to Tools -> Global Options -> Git/SVN
+2. Ensure **Enable version control interface for RStudio projects** is checked
+3. If needed, set the path to your Git executable
+4. Click OK and restart RStudio
+
+If Git is connected properly, you should see Git options appear in RStudio projects and a Git tab in the upper right when you open a Git-enabled project.
+
+## Create a GitHub account and set up authentication
+
+1. Create a GitHub account  <https://github.com/>
+2. To push from your computer to GitHub, you must authenticate using either.
+
+- HTTPS with a Personal Access Token (PAT)
+- SSH keys
+
+If you use a PAT, you can create one here  <https://github.com/settings/tokens>
+
+In RStudio, you can also use the `usethis` package to help set up GitHub authentication.
+
+```{r, eval=FALSE}
+install.packages('usethis')
+usethis::create_github_token()
+usethis::git_sitrep()
+```
+
+# Creating your website project in RStudio
+
+Once R, RStudio, and Git are set up, you will create a Distill website project in RStudio, then publish it to GitHub Pages.
+
+
+# Deliverables
+
+## 1. Personal website built with Distill
+
+Your site should be a Distill site (created from RStudio) and hosted on GitHub Pages. At minimum, it must include.
+
+- A homepage with your name and a short bio.
+- A working navigation link to your GV300 showcase page/post.
+- A working published GitHub Pages URL.
+
+## 2. A Postcards landing page
+
+Create a landing page using the **postcards** package, then use it as the front page of your site (or link it prominently from your homepage).
+
+At minimum, your Postcards page should include.
+
+- Your name
+- A short bio or academic interests
+- A link to your GV300 showcase page/post
+
+## 3. GV300 showcase page or post
+
+Create one page or post on your site that includes.
+
+- A short introduction to the work you are showcasing.
+- At least one code example from a previous assignment.
+- At least one data visualisation from a previous assignment.
+- A short explanation of what the code does and what the figure shows.
+- A link to the repository or source files for the showcased work (if applicable).
+
+# What to submit
+
+Submit the following items on the course submission page.
+
+- The URL to your GitHub Pages website.
+- The URL to your GV300 showcase page/post.
+- The link to the GitHub repository that contains your site source.
+
+# Assessment criteria
+
+Your grade will be based on.
+
+- **Functionality**  Site renders and loads correctly. Navigation links work.
+- **Clarity**  Writing explains what you did and why it matters.
+- **Reproducibility**  Code is readable and results are consistent.
+- **Visualisation quality**  Figure is appropriate, clearly labelled, and discussed.
+- **Professional presentation**  Layout is clean and easy to navigate.
+
+# Suggested workflow 
+
+## Step 1. Create a Distill site
+
+In RStudio, create a new Distill website.
+
+- File -> New Project -> New Directory -> Distill Website
+- Choose a folder name for your site project
+- RStudio will create key files like `_site.yml` and an `index.Rmd`
+
+```{r}
+# Install the core website building tools
+install.packages(c("distill", "postcards"))
+```
+
+```{r}
+# This creates the site files in your current working directory
+# 'gh_pages = TRUE' automatically prepares the site for GitHub hosting
+distill::create_website(dir = ".", title = "My Portfolio", gh_pages = TRUE)
+```
+
+
+
+
+
+
+## Step 2. Add a Postcards landing page
+
+Use the `postcards` package to create a simple landing page, then integrate it into the Distill site as described in the guide.
+
+If you need a starting point, create a new R Markdown file such as `landing.Rmd` and use a Postcards template.
+
+```r
+# install.packages('postcards')
+# library(postcards)
+# postcards::create_postcard('trestles')
+```
+
+## Step 3. Create your GV300 showcase post
+
+In a Distill site, posts typically live in a `_posts/` folder. Create a new Distill post and add your content.
+
+- Use the Distill Addin (or create a new post folder)
+- Include at least one code chunk and at least one figure
+
+## Step 4. Render and publish to GitHub Pages
+
+Render the site locally, push it to GitHub, and configure GitHub Pages.
+
+# Template content you can copy into your Distill post
+
+Below is a template you can paste into a Distill post file (for example `_posts/2026-01-26-gv300-showcase/index.Rmd`).
+
+## Example code chunk
+
+```{r}
+# Replace with code from your previous assignment
+# df <- read.csv('my_data.csv')
+# head(df)
+```
+
+## Example visualisation
+
+```{r}
+# Replace with your plot code
+# library(ggplot2)
+# ggplot(df, aes(x = xvar, y = yvar)) +
+#   geom_point() +
+#   theme_minimal() +
+#   labs(title = 'My GV300 visualisation')
+```
+
+Write 5 to 8 sentences explaining what the code does and what the figure shows.
+
+# Academic integrity and attribution
+
+You may reuse your own code and figures from earlier GV300 assignments. If you adapt code from external sources (including AI tools), you must cite that help and clearly indicate what was adapted.
+
+# Checklist
+
+Before submitting, confirm.
+
+- Your GitHub Pages URL loads.
+- Your navigation links work and your GV300 showcase page/post is easy to find.
+- Your showcase contains at least one code example and one visualisation.
+- Your figure has a title and axis labels where relevant.
+- Your writing explains the work in plain language.
+
